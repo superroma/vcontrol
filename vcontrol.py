@@ -50,7 +50,7 @@ def led_control(value=None):
     GPIO.output(LED_PIN, value)
     current = GPIO.input(LED_PIN)
     return current
-def getUpsStatus:
+def getUpsStatus():
     try:
         outStr = subprocess.check_output(["/etc/init.d/apcupsd", "status"])
     except:

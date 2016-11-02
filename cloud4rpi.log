@@ -1,0 +1,19 @@
+2016-11-02 18:11:48,175: MQTT connecting mq.cloud4rpi.io:1883
+2016-11-02 18:11:48,259: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'config', 'ts': '2016-11-02T15:11:48.258856', 'payload': [{'type': 'bool', 'name': 'UpsOnline'}, {'type': 'numeric', 'name': 'RoomTemp'}]}
+2016-11-02 18:11:48,259: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:11:48.259619', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:11:48,260: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'system', 'ts': '2016-11-02T15:11:48.260416', 'payload': {'OS Name': 'Darwin romans-mbp-2.corp.devexpress.com 16.1.0 Darwin Kernel Version 16.1.0: Thu Oct 13 21:26:57 PDT 2016; root:xnu-3789.21.3~60/RELEASE_X86_64 x86_64', 'Host': 'romans-mbp-2.corp.devexpress.com', 'CPU Temperature': 70, 'IPAddress': '172.22.2.212'}}
+2016-11-02 18:11:48,260: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:11:48.260684', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:12:08,690: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:12:08.690496', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:12:18,932: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:12:18.932474', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:12:29,145: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:12:29.145604', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:12:39,359: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:12:39.359497', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:12:49,590: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:12:49.589911', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:12:49,590: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'system', 'ts': '2016-11-02T15:12:49.590493', 'payload': {'OS Name': 'Darwin romans-mbp-2.corp.devexpress.com 16.1.0 Darwin Kernel Version 16.1.0: Thu Oct 13 21:26:57 PDT 2016; root:xnu-3789.21.3~60/RELEASE_X86_64 x86_64', 'Host': 'romans-mbp-2.corp.devexpress.com', 'CPU Temperature': 70, 'IPAddress': '172.22.2.212'}}
+2016-11-02 18:12:59,811: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:12:59.811030', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:13:10,126: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:13:10.126370', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:13:20,344: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:13:20.344242', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:13:30,612: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:13:30.612537', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:13:40,853: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:13:40.853672', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:13:51,094: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'data', 'ts': '2016-11-02T15:13:51.093887', 'payload': {'UpsOnline': False, 'RoomTemp': 42}}
+2016-11-02 18:13:51,094: Publishing iot-hub/messages/9vZPYh7ybYxXLZaCrVZWvJLZv: {'type': 'system', 'ts': '2016-11-02T15:13:51.094485', 'payload': {'OS Name': 'Darwin romans-mbp-2.corp.devexpress.com 16.1.0 Darwin Kernel Version 16.1.0: Thu Oct 13 21:26:57 PDT 2016; root:xnu-3789.21.3~60/RELEASE_X86_64 x86_64', 'Host': 'romans-mbp-2.corp.devexpress.com', 'CPU Temperature': 70, 'IPAddress': '172.22.2.212'}}
+2016-11-02 18:13:59,036: Keyboard interrupt received. Stopping...

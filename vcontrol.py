@@ -119,12 +119,15 @@ def main():
 
     try:
         time_passed = 0
+        prevUPS = True
         next_data_sending = DATA_SENDING_INTERVAL
         next_diag_sending = DIAG_SENDING_INTERVAL
         while True:
-            if time_passed >= next_data_sending:
+            newUPS = UPS.read()
+            if (time_passed >= next_data_sending) | (newUPS != prevUPS):
                 next_data_sending += DATA_SENDING_INTERVAL
                 device.send_data()
+                prevUPS = newUPS
 
             if time_passed >= next_diag_sending:
                 next_diag_sending += DIAG_SENDING_INTERVAL

@@ -50,19 +50,21 @@ def led_control(value=None):
     GPIO.output(LED_PIN, value)
     current = GPIO.input(LED_PIN)
     return current
+def getUpsStatus:
+    try:
+        outStr = subprocess.check_output(["/etc/init.d/apcupsd", "status"])
+    except:
+        outStr = ''
+    match = re.search('STATUS\s+:\s+(\S+)', outStr)
+    if match:
+        status = match.group(1)
+    else:
+        status = 'UNKNOWN'
+    return status
 
 class UPS(object):
     def read(self):
-    	try:
-        	outStr = subprocess.check_output(["/etc/init.d/apcupsd", "status"])
-    	except:
-        	outStr = ''
-    	match = re.search('STATUS\s+:\s+(\S+)', outStr)
-    	if match:
-        	status = match.group(1)
-    	else:
-        	status = 'UNKNOWN'
-    	return status == 'ONLINE'
+        return getUpsStatus() == 'ONLINE'
 	
 def main():
     configure_logging(log)
@@ -119,11 +121,11 @@ def main():
 
     try:
         time_passed = 0
-        prevUPS = True
+        prevUPS = 'ONLINE'
         next_data_sending = DATA_SENDING_INTERVAL
         next_diag_sending = DIAG_SENDING_INTERVAL
         while True:
-            newUPS = UPS.read()
+            newUPS = getUpsStatus()
             if (time_passed >= next_data_sending) | (newUPS != prevUPS):
                 next_data_sending += DATA_SENDING_INTERVAL
                 device.send_data()

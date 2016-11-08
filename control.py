@@ -1,12 +1,11 @@
 import sys, time
-import logging, logging.handlers
 
 import cloud4rpi
 
 DEVICE_TOKEN = '9vZPYh7ybYxXLZaCrVZWvJLZv'
-DATA_SENDING_INTERVAL = 600  # secs
-DIAG_SENDING_INTERVAL = 3600  # secs
-POLL_INTERVAL = 10  # 100 ms
+DATA_SENDING_INTERVAL = 5  # secs
+DIAG_SENDING_INTERVAL = 20  # secs
+POLL_INTERVAL = 1  # 100 ms
 
 
 def get_ups_status():
@@ -34,38 +33,17 @@ class OSName(object):
     def read(self):
         return 'osx'
 
-LOG_FILE_PATH = '../cloud4rpi.log'
-
-log = logging.getLogger(cloud4rpi.config.loggerName)
-log.setLevel(logging.INFO)
-
-
-def configure_logging(logger):
-    console = logging.StreamHandler()
-    console.setFormatter(logging.Formatter('%(message)s'))
-    logger.addHandler(console)
-    log_file = logging.handlers.RotatingFileHandler(
-        LOG_FILE_PATH,
-        maxBytes=1024 * 1024,
-        backupCount=10
-    )
-    log_file.setFormatter(logging.Formatter('%(asctime)s: %(message)s'))
-    logger.addHandler(log_file)
-
-
 def main():
-    configure_logging(log)
-
     # Put variable declarations here
     variables = {
-         'RoomTemp': {
-             'type': 'numeric',
-             'bind': GetSensor()
-         },
-	    'UpsOnline': {
-             'type': 'bool',
-             'bind': UPS()
-         }
+        'RoomTemp': {
+            'type': 'numeric',
+            'bind': GetSensor()
+        },
+        'UpsOnline': {
+            'type': 'bool',
+            'bind': UPS()
+        }
 
         # 'CurrentTemp_2': {
         #     'type': 'numeric',
@@ -118,11 +96,11 @@ def main():
             time_passed += POLL_INTERVAL
 
     except KeyboardInterrupt:
-        log.info('Keyboard interrupt received. Stopping...')
+        cloud4rpi.log.info('Keyboard interrupt received. Stopping...')
 
     except Exception as e:
         error = cloud4rpi.get_error_message(e)
-        log.error("ERROR! %s %s", error, sys.exc_info()[0])
+        cloud4rpi.log.error("ERROR! %s %s", error, sys.exc_info()[0])
 
     finally:
         sys.exit(0)

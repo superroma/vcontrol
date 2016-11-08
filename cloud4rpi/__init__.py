@@ -3,7 +3,7 @@
 import time
 import os
 import subprocess
-import logging
+import logging, logging.handlers
 import cloud4rpi.device
 import cloud4rpi.api_client
 import cloud4rpi.config
@@ -13,7 +13,24 @@ from cloud4rpi.cpu_temperature import CpuTemperature
 from cloud4rpi.net import IPAddress, Hostname
 
 log = logging.getLogger(cloud4rpi.config.loggerName)
+LOG_FILE_PATH = '../cloud4rpi.log'
 
+log.setLevel(logging.INFO)
+
+
+def configure_logging(logger):
+    console = logging.StreamHandler()
+    console.setFormatter(logging.Formatter('%(message)s'))
+    logger.addHandler(console)
+    log_file = logging.handlers.RotatingFileHandler(
+        LOG_FILE_PATH,
+        maxBytes=1024 * 1024,
+        backupCount=10
+    )
+    log_file.setFormatter(logging.Formatter('%(asctime)s: %(message)s'))
+    logger.addHandler(log_file)
+
+configure_logging(log)
 
 def modprobe(module):
     cmd = 'modprobe {0}'.format(module)

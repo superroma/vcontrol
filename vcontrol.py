@@ -2,18 +2,13 @@
 
 import sys
 sys.path.append('../cloud4rpi/')
-import subprocess
-import re
-#import logging
-#import logging.handlers
-import os
-import time
+import subprocess, re, os, time
 import cloud4rpi
 #import RPi.GPIO as GPIO  # pylint: disable=E0401
 
-# Put your device token here. To get the token,
-# sign up at https://cloud4rpi.io and create a device.
-DEVICE_TOKEN = '9vZPYh7ybYxXLZaCrVZWvJLZv'
+
+# Put your device token here. To get the token, sign up at https://cloud4rpi.io and create a device.
+cloud4rpi.DEVICE_TOKEN = '9vZPYh7ybYxXLZaCrVZWvJLZv' 
 
 # Constants
 LED_PIN = 12
@@ -92,7 +87,7 @@ def main():
         'OS Name': ' '.join(str(x) for x in os.uname())
     }
 
-    device = cloud4rpi.connect_mqtt(DEVICE_TOKEN)
+    device = cloud4rpi.connect()
     device.declare(variables)
     device.declare_diag(diagnostics)
 

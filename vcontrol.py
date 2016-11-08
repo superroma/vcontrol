@@ -1,87 +1,67 @@
 #!/usr/bin/env python2.7
-# -*- coding: utf-8 -*-
 
+import sys
+sys.path.append('../cloud4rpi/')
 import subprocess
 import re
-import logging
-import logging.handlers
+#import logging
+#import logging.handlers
 import os
-import sys
 import time
 import cloud4rpi
-import RPi.GPIO as GPIO  # pylint: disable=E0401
+#import RPi.GPIO as GPIO  # pylint: disable=E0401
 
 # Put your device token here. To get the token,
 # sign up at https://cloud4rpi.io and create a device.
-DEVICE_TOKEN = 'AGyBWv7NH4D7bXQwQoQNhRr9r'
+DEVICE_TOKEN = '9vZPYh7ybYxXLZaCrVZWvJLZv'
 
 # Constants
 LED_PIN = 12
-DATA_SENDING_INTERVAL = 600  # secs
-DIAG_SENDING_INTERVAL = 3600  # secs
-POLL_INTERVAL = 10  # 100 ms
-
-LOG_FILE_PATH = '/var/log/cloud4rpi.log'
-
-log = logging.getLogger(cloud4rpi.config.loggerName)
-log.setLevel(logging.INFO)
-
-
-def configure_logging(logger):
-    console = logging.StreamHandler()
-    console.setFormatter(logging.Formatter('%(message)s'))
-    logger.addHandler(console)
-    log_file = logging.handlers.RotatingFileHandler(
-        LOG_FILE_PATH,
-        maxBytes=1024 * 1024,
-        backupCount=10
-    )
-    log_file.setFormatter(logging.Formatter('%(asctime)s: %(message)s'))
-    logger.addHandler(log_file)
+DATA_SENDING_INTERVAL = 10  # secs
+DIAG_SENDING_INTERVAL = 60  # secs
+POLL_INTERVAL = 0.1  # 100 ms
 
 
 def configure_gpio():
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(LED_PIN, GPIO.OUT)
+    #GPIO.setmode(GPIO.BOARD)
+    #GPIO.setup(LED_PIN, GPIO.OUT)
+    return
 
 
 # handler for the button or switch variable
 def led_control(value=None):
-    GPIO.output(LED_PIN, value)
-    current = GPIO.input(LED_PIN)
-    return current
+    #GPIO.output(LED_PIN, value)
+    #current = GPIO.input(LED_PIN)
+    #return current
+    return value
+
 def getUpsStatus():
-    try:
-        outStr = subprocess.check_output(["/etc/init.d/apcupsd", "status"])
-    except:
-        outStr = ''
-    match = re.search('STATUS\s+:\s+(\S+)', outStr)
-    if match:
-        status = match.group(1)
-    else:
-        status = 'UNKNOWN'
-    return status
+    return 'UNKNOWN'
 
 class UPS(object):
     def read(self):
         return getUpsStatus() == 'ONLINE'
-	
+
+class Sensor(object):
+    def read(self):
+        return 42
+
 def main():
-    configure_logging(log)
+    #configure_logging(log)
     configure_gpio()
 
     #  load w1 modules
-    cloud4rpi.modprobe('w1-gpio')
-    cloud4rpi.modprobe('w1-therm')
+    #cloud4rpi.modprobe('w1-gpio')
+    #cloud4rpi.modprobe('w1-therm')
 
     # detect ds18b20 temperature sensors
-    ds_sensors = cloud4rpi.DS18b20.find_all()
+    #ds_sensors = cloud4rpi.DS18b20.find_all()
 
     # Put variable declarations here
     variables = {
          'RoomTemp': {
              'type': 'numeric',
-             'bind': ds_sensors[0]
+             'bind': Sensor()
          },
 	'UpsOnline': {
              'type': 'bool',
@@ -139,11 +119,11 @@ def main():
             time_passed += POLL_INTERVAL
 
     except KeyboardInterrupt:
-        log.info('Keyboard interrupt received. Stopping...')
+        cloud4rpi.logger.info('Keyboard interrupt received. Stopping...')
 
     except Exception as e:
         error = cloud4rpi.get_error_message(e)
-        log.error("ERROR! %s %s", error, sys.exc_info()[0])
+        cloud4rpi.logger.error("ERROR! %s %s", error, sys.exc_info()[0])
 
     finally:
         sys.exit(0)

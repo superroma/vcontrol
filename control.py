@@ -14,13 +14,12 @@ def read_ups_status():
 def ups_online():
     return read_ups_status() == 'ONLINE'
 
-class GetSensor(object):
-    def read(self):
-        return 25
+def get_sensors():
+    return 25
 
-class CPUTemp(object):
-    def read(self):
-        return 70
+def cpu_temp():
+    return 70
+
 class IPAddress(object):
     def read(self):
         return '8.8.8.8'
@@ -37,7 +36,7 @@ def main():
     variables = {
         'RoomTemp': {
             'type': 'numeric',
-            'bind': GetSensor()
+            'bind': get_sensors
         },
         'UpsOnline': {
             'type': 'bool',
@@ -62,7 +61,7 @@ def main():
     }
 
     diagnostics = {
-        'CPU Temperature': CPUTemp(),
+        'CPU Temperature': cpu_temp,
         'IPAddress': IPAddress(),
         'Host': cloud4rpi.Hostname(),
         'OS Name': OSName()

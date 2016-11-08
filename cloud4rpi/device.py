@@ -63,6 +63,8 @@ class Device(object):
         for name, value in self.__diag.items():
             if hasattr(value, 'read'):
                 readings[name] = value.read()
+            elif callable(value):
+                readings[name] = value()
+            else:
                 continue
-            readings[name] = value
         self.__api.publish_diag(readings)

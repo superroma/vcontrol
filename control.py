@@ -1,38 +1,30 @@
 import sys, time
 import cloud4rpi
+import rpi
+import ds18b20
 
 def read_ups_status():
-    return 'OFFLINE'
+    return rpi.parse_output(r'STATUS\s+:\s+(\S+)', 'UNKNOWN', ["/etc/init.d/apcupsd", "status"])
 
 def ups_online():
     return read_ups_status() == 'ONLINE'
 
-def get_sensors():
-    return 25
-
-def cpu_temp():
-    return 70
-
-def ip_address():
-    return '8.8.8.8'
-
-def hostname():
-    return 'hostname'
-
-def osname():
-    return 'osx'
 
 DEVICE_TOKEN = '9vZPYh7ybYxXLZaCrVZWvJLZv'
 DATA_SENDING_INTERVAL = 5  # secs
 DIAG_SENDING_INTERVAL = 20  # secs
 POLL_INTERVAL = 0.5  # 100 ms
 
+ds18b20.init_w1()
+ds_sensors = ds18b20.DS18b20.find_all()
+
+
 def main():
     # Put variable declarations here
     variables = {
         'RoomTemp': {
             'type': 'numeric',
-            'bind': get_sensors
+            'bind': ds_sensors[0]
         },
         'UpsOnline': {
             'type': 'bool',
@@ -41,10 +33,10 @@ def main():
     }
 
     diagnostics = {
-        'CPU Temperature': cpu_temp,
-        'IPAddress': ip_address,
-        'Host': hostname,
-        'OS Name': osname
+        'CPU Temperature': rpi.cpu_temp,
+        'IPAddress': rpi.ip_address,
+        'Host': rpi.hostname,
+        'OS Name': rpi.osname
     }
 
     device = cloud4rpi.connect_mqtt(DEVICE_TOKEN)

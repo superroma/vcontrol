@@ -8,12 +8,11 @@ DIAG_SENDING_INTERVAL = 20  # secs
 POLL_INTERVAL = 1  # 100 ms
 
 
-def get_ups_status():
+def read_ups_status():
     return 'OFFLINE'
 
-class UPS(object):
-    def read(self):
-        return get_ups_status() == 'ONLINE'
+def ups_online():
+    return read_ups_status() == 'ONLINE'
 
 class GetSensor(object):
     def read(self):
@@ -42,7 +41,7 @@ def main():
         },
         'UpsOnline': {
             'type': 'bool',
-            'bind': UPS()
+            'bind': ups_online
         }
 
         # 'CurrentTemp_2': {
@@ -82,7 +81,7 @@ def main():
         next_data_sending = DATA_SENDING_INTERVAL
         next_diag_sending = DIAG_SENDING_INTERVAL
         while True:
-            new_ups = get_ups_status()
+            new_ups = read_ups_status()
             if (time_passed >= next_data_sending) | (new_ups != prev_ups):
                 next_data_sending += DATA_SENDING_INTERVAL
                 device.send_data()

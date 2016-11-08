@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import inspect
 
 class Device(object):
     def __init__(self, api):
@@ -41,9 +41,15 @@ class Device(object):
     def send_data(self):
         for _, varConfig in self.__variables.items():
             bind = varConfig.get('bind', None)
-            if not hasattr(bind, 'read'):
+            if hasattr(bind, 'read'):
+                varConfig['value'] = bind.read()
+            elif callable(bind):
+                if inspect.getargspec(bind).args.__len__() == 0:
+                    varConfig['value'] = bind()
+                else:
+                    varConfig['value'] = bind(varConfig['value'])
+            else:
                 continue
-            varConfig['value'] = bind.read()
 
         readings = {varName: varConfig.get('value')
                     for varName, varConfig in self.__variables.items()}

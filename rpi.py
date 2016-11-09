@@ -14,10 +14,6 @@ def parse_output(pattern, default, args):
     return result
 
 
-
-def get_sensors():
-    return 25
-
 def cpu_temp():
     return parse_output('temp=(.*)C', '0', ['vcgencmd', 'measure_temp'])
 

@@ -1,3 +1,5 @@
+import sys, os, re, subprocess
+
 W1_DEVICES = '/sys/bus/w1/devices/'
 W1_SENSOR_PATTERN = re.compile('(10|22|28)-.+', re.IGNORECASE)
 

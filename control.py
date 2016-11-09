@@ -1,4 +1,4 @@
-import sys, time
+import sys, time, re
 import cloud4rpi
 import rpi
 import ds18b20

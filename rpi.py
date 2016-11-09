@@ -15,13 +15,13 @@ def parse_output(pattern, default, args):
 
 
 def cpu_temp():
-    return parse_output('temp=(.*)C', '0', ['vcgencmd', 'measure_temp'])
+    return parse_output(r'temp=(\S*)\'C', '0', ['vcgencmd', 'measure_temp'])
 
 def ip_address():
-    return parse_output('(.*)', '?', ['hostname', '-I'])
+    return parse_output(r'(\S*)', '?', ['hostname', '-I'])
 
 def hostname():
-    return parse_output('(.*)', '?', ['hostname'])
+    return parse_output(r'(\S*)', '?', ['hostname'])
 
 def osname():
-    return parse_output('(.*)', '?', ['uname', '-a'])
+    return parse_output(r'(.*)', '?', ['uname', '-a'])

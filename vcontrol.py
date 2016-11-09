@@ -126,7 +126,7 @@ def main():
         next_diag_sending = DIAG_SENDING_INTERVAL
         while True:
             newUPS = getUpsStatus()
-            if (time_passed >= next_data_sending) | (newUPS != prevUPS):
+            if (time_passed >= next_data_sending) or (newUPS != prevUPS):
                 next_data_sending += DATA_SENDING_INTERVAL
                 device.send_data()
                 prevUPS = newUPS
